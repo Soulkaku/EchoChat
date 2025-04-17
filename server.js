@@ -1,0 +1,54 @@
+import express from "express";
+import http from "http";
+import path from "path";
+import { fileURLToPath } from "url";
+import { Server } from "socket.io";
+
+
+const app = express();
+const PORT = 3000;
+
+const server = http.createServer(app);
+const io = new Server(server);
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+io.on('connection', (socket) => {
+    console.log("User connected");
+})
+
+server.listen(PORT, () => {
+    console.log("Running in port " + PORT + `: http://localhost:${PORT}/`);
+});
+
+
+export default { io };
+
+// const PORT = 3000;
+// const app = express();
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+
+// app.engine('handlebars', exphb({
+//     defaultLayout : 'default',
+//     partialsDir: path.join(__dirname, 'views/partials'),
+//     extname: '.hbs'
+// }));
+// app.set('view engine', 'handlebars');
+// app.set('views', path.join(__dirname, 'views'));
+
+
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// app.get('/', (req, res) => {
+//     res.render('default', {layout: 'HomePage'});
+// });
+
+// app.listen(PORT, () => {
+//     console.log("Running in port " + PORT + `: http://localhost:${PORT}/`);
+// });
+
