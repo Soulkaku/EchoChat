@@ -4,18 +4,16 @@
 
 <body>
     <div class="container">
-        <div class="child">
             <div class="title">
                 <h1 >Welcome!</h1>
             </div>
 
             <div class="box">
                 <div class="userLogin">
-                    <input type="text" placeholder="Escreva seu nome aqui" id="username">
-                    <button type="submit" class="submitButton"> Entrar </button>
+                    <input type="text" placeholder="Escreva seu nome aqui" id="input-username" class="inputUsername">
+                    <button type="submit" id="submit-button" class="submitButton"> Entrar </button>
                 </div>
             </div>
-        </div>
     </div>
 
     <div id="creator">
@@ -23,5 +21,8 @@
     </div>
 </body>
 
-{{!-- <script type="module" src="/js/userLogin-script" defer></script> --}}
+<script type="module" src="/js/userLogin-script.js" defer></script>
 <script src="/socket.io/socket.io.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Condensed+One&display=swap');
+</style>
