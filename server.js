@@ -3,7 +3,7 @@ import http from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Server } from "socket.io";
-import { exphb } from "express-handlebars";
+import exphbs  from "express-handlebars";
 
 
 const app = express();
@@ -16,7 +16,7 @@ const io = new Server(server);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.engine('hbs', exphb({
+app.engine('hbs', exphbs.engine({
     layoutsDir: path.join(__dirname, "SRC/Views/Layouts"),
     partialsDir: path.join(__dirname, "SRC/Views/Partials"),
     default: 'main',
@@ -24,12 +24,9 @@ app.engine('hbs', exphb({
 }));
 
 
-
 server.listen(PORT, () => {
     console.log("Running in port " + PORT + `: http://localhost:${PORT}/`);
 });
-
-
 
 export default { io };
 
