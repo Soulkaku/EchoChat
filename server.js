@@ -16,19 +16,29 @@ const io = new Server(server);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.set("view engine", "hbs");
 app.engine('hbs', exphbs.engine({
     layoutsDir: path.join(__dirname, "SRC/Views/Layouts"),
     partialsDir: path.join(__dirname, "SRC/Views/Partials"),
     default: 'main',
     extname: 'hbs'
 }));
+app.set("views", path.join(`${__dirname}/SRC/Views`));
+app.use(express.static(path.join(`${__dirname}/Public`)));
 
+app.use(express.urlencoded({ extended: true}));
+
+app.get('/', (req, res) => {
+    res.render("login", {layout: "main"});
+});
 
 server.listen(PORT, () => {
     console.log("Running in port " + PORT + `: http://localhost:${PORT}/`);
 });
 
 export default { io };
+
+
 
 // const PORT = 3000;
 // const app = express();
