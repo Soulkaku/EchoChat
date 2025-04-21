@@ -24,8 +24,8 @@ app.engine('hbs', exphbs.engine({
     extname: 'hbs'
 }));
 app.set("views", path.join(`${__dirname}/SRC/Views`));
-app.use(express.static(path.join(`${__dirname}/Public`)));
 
+app.use(express.static(path.join(`${__dirname}/Public`)));
 app.use(express.urlencoded({ extended: true}));
 
 app.get('/', (req, res) => {
