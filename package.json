@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "chat de conversa feito com socket.io e node.js",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "express": "^5.1.0",
     "express-handlebars": "^8.0.2",
     "handlebars": "^4.7.8",
+    "nodemon": "^3.1.9",
     "socket.io": "^4.8.1"
   }
 }
