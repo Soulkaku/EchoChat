@@ -1,4 +1,5 @@
 body {
+    font-family: "Special Gothic Condensed One";
     display: flex;
     margin: 0;
     padding: 0;
@@ -7,7 +8,7 @@ body {
     justify-content: center;
 }
 
-.container {
+/* .container {
     display: flex;
     width: 500px;
     min-height: 150px;
@@ -21,7 +22,7 @@ body {
 .title {
     display: flex;
     text-align: center;
-}
+} */
 
 #creator {
     position: absolute;
