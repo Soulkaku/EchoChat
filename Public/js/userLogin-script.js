@@ -7,12 +7,26 @@ submitButton.addEventListener("click", (event) => {
     event.preventDefault();
 
     const user = { //subsituir por socket futuramente, para evitar falhas provocadas pelo cliente
-        username: inputText.value, 
+        username: inputText.value.trim(), 
     }
 
-    console.log(JSON.stringify(user));
-    console.log("alright");
+    socket.emit("verify-user", user);
 
-    sessionStorage.setItem("userClient", user);
-    window.location.href = `/conversas-de?=${user.username}`;
+    socket.on("reject-user", message => {
+        console.log(JSON.stringify(user));
+        alert(message);
+        return;
+    });
+
+    socket.on("pass-user", username => {
+        alert("This is your name " + username);
+        return;
+    });
+     
+        
+        console.log("alright");
+    
+        sessionStorage.setItem("userClient", user);
+        // window.location.href = `/conversas-de?=${user.username}`;
+
 });
