@@ -36,7 +36,7 @@ server.listen(PORT, () => {
     console.log("Running in port " + PORT + `: http://localhost:${PORT}/`);
 });
 
-export default { io };
+export default  io ;
 
 
 
