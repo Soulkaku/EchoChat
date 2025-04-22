@@ -1,6 +1,5 @@
 import { socket } from "./socket.js";
 
-
 const submitButton = document.getElementById("submit-button");
 const inputText = document.getElementById("input-username");
 
@@ -15,4 +14,5 @@ submitButton.addEventListener("click", (event) => {
     console.log("alright");
 
     sessionStorage.setItem("userClient", user);
+    window.location.href = `/conversas-de?=${user.username}`;
 });
