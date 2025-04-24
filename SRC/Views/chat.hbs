@@ -1,0 +1,48 @@
+<title>Suas conversas</title>
+
+<link rel="stylesheet" type="text/css" href="/css/chat-styles.css">
+
+<body>
+    <div class="title">
+        <h1 id="username"> </h1>
+    </div>
+
+    <div class="box">
+        <div class="top-box">
+            <input type="text" class="room" placeholder="change your room here">
+            <button type="submit" class="change-room"> change </button>
+        </div>
+
+        <div class="center-box">
+            <div class="chat">
+                <div class="friend-message"> 
+                    <p class="message"> hell nah </p>
+                </div>
+
+                <div class="your-message"> 
+                    <p> hell yeah </p>
+                </div>
+            </div>
+
+            <div class="type-message">
+                <input type="text" class="pre-message" placeholder="type your message here">
+                <button type="submit" class="send-message"> Send </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script type="module" src="/js/chat-script.js" defer></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Condensed+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic&display=swap');
+</style>
+
+
+    <div id="creator">
+        <p class="creatorContent"> Project created by Thiago Gonçalves</p>
+    </div>
+</body>
