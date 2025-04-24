@@ -29,7 +29,11 @@ app.use(express.static(path.join(`${__dirname}/Public`)));
 app.use(express.urlencoded({ extended: true}));
 
 app.get('/', (req, res) => {
-    res.render("login", {layout: "main"});
+    res.render("login", {layout: "main"} );
+});
+
+app.get('/conversas', (req, res) => {
+    res.render("chat", {layout: "main"} );
 });
 
 server.listen(PORT, () => {
