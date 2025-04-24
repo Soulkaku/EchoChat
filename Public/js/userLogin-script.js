@@ -20,13 +20,10 @@ submitButton.addEventListener("click", (event) => {
 
     socket.on("pass-user", username => {
         alert("This is your name " + username);
-        return;
     });
-     
-        
-        console.log("alright");
-    
-        sessionStorage.setItem("userClient", user);
-        // window.location.href = `/conversas-de?=${user.username}`;
 
+        console.log("alright");
+            
+        sessionStorage.setItem("userClient", user.username); //use o JSON.stringfy(user) futuramente
+        window.location.href = `/conversas?user=${user.username}`;
 });
