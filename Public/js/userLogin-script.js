@@ -1,29 +1,22 @@
-import { socket } from "./socket.js";
 
-const submitButton = document.getElementById("submit-button");
-const inputText = document.getElementById("input-username");
+const usernameInput = document.getElementById("input-username");
+const submitUser = document.getElementById("submit-button");
 
-submitButton.addEventListener("click", (event) => {
-    event.preventDefault();
+submitUser.addEventListener("click", (e) => {
+    e.preventDefault();
 
-    const user = { //subsituir por socket futuramente, para evitar falhas provocadas pelo cliente
-        username: inputText.value.trim(), 
+    if((usernameInput.value.trim()).length < 3) {
+        alert("invalid name");
+        usernameInput.textContent = "";
+        return;
     }
 
-    socket.emit("verify-user", user);
+    const user = {
+       "username" : usernameInput.value.trim()
+    }
 
-    socket.on("reject-user", message => {
-        console.log(JSON.stringify(user));
-        alert(message);
-        return;
-    });
+    console.log("log 1: " + JSON.stringify(user));
 
-    socket.on("pass-user", username => {
-        alert("This is your name " + username);
-    });
-
-        console.log("alright");
-            
-        sessionStorage.setItem("userClient", user.username); //use o JSON.stringfy(user) futuramente
-        window.location.href = `/conversas?user=${user.username}`;
+    sessionStorage.setItem("user-client", JSON.stringify(user));
+    window.location.href = `/conversas?user=${user.username}`;
 });
