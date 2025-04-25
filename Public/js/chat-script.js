@@ -4,6 +4,8 @@ import { socket } from "./socket.js";
 const user = JSON.parse(sessionStorage.getItem("user-client"));
 console.log(user);
 
+let room;
+
 document.getElementById("username").textContent = user.username;
 
 const sendMessage = document.getElementById("button-sendMessage");
@@ -34,6 +36,12 @@ sendMessage.addEventListener("click", (e) => {
 
 });
 
+document.getElementById("define-room").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    return defineRoom();
+});
+
 
 function createMessage(content, person) {
     var messageDiv = document.createElement("div");
@@ -46,6 +54,14 @@ function createMessage(content, person) {
     messageDiv.appendChild(message);
 
     document.getElementById("chat-message").appendChild(messageDiv);
+}
+
+function defineRoom() {
+    const roomInput = document.getElementById("roomInput");
+    room = roomInput.value.trim();
+
+    roomInput.textContent = "null";
+    console.log("log 2: function defineRoom");
 }
 
 // function defineRoom() {
