@@ -9,24 +9,24 @@
 
     <div class="box">
         <div class="top-box">
-            <input type="text" class="room" placeholder="change your room here">
-            <button type="submit" class="change-room"> change </button>
+            <input type="text" id="roomInput" class="room" placeholder="change your room here">
+            <button type="submit" id="define-room" class="change-room"> change </button>
         </div>
 
         <div class="center-box">
-            <div class="chat">
+            <div id="chat-message" class="chat">
                 <div class="friend-message"> 
                     <p class="message"> hell nah </p>
                 </div>
 
-                <div class="your-message"> 
-                    <p> hell yeah </p>
+                <div id="me" class="your-message"> 
+                    <p class="message" > hell yeah </p>
                 </div>
             </div>
 
-            <div class="type-message">
-                <input type="text" class="pre-message" placeholder="type your message here">
-                <button type="submit" class="send-message"> Send </button>
+            <div  id="pre-messagePost" class="type-message">
+                <input type="text" id="messagePost" class="pre-message" placeholder="type your message here">
+                <button type="submit" id="button-sendMessage" class="send-message"> Send </button>
             </div>
         </div>
     </div>
@@ -43,6 +43,6 @@
 
 
     <div id="creator">
-        <p class="creatorContent"> Project created by Thiago Gonçalves</p>
+        <p class="creatorContent"> Project created by Thiago Gonçalves </p>
     </div>
 </body>
