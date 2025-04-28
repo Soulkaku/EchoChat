@@ -3,22 +3,19 @@ import io from "../../server.js";
 io.on("connection", (socket) => {
     console.log(socket.id + " connected");
 
-    let room;
-
-    socket.on("enter-room", socketRoom => {
-        room = socketRoom;
-        socket.join(socketRoom);
-
+    socket.on("enter-room", (room) => {
+        socket.join(room);
     });
 
-    
- 
-    socket.on("client-message", message => {
-        const content = message.content;
-        const roomMessage = message.room
-
-        socket.to(room).emit("friend-message", content);
-        console.log(content +  " " + room);
+    socket.on("leave-room", (room) => {
+        socket.leave(room);
+        console.log(socket.id + " has leave the room " + room);
     });
 
+    socket.on("client-message", (message) => {
+        const room = message.room;
+
+        socket.to(room).emit("friend-message", message);
+    });
 });
+
