@@ -1,63 +1,76 @@
 import { socket } from "./socket.js";
 
-const user = JSON.parse(sessionStorage.getItem("user-client"));
-console.log(user);
+const userData = JSON.parse(sessionStorage.getItem("user-client"));
+console.log(userData);
 
-let room;
+const nameBox = document.getElementById("username").textContent = userData.username;
 
-document.getElementById("username").textContent = user.username;
-
+const messageInput = document.getElementById("messageInput");
 const sendMessage = document.getElementById("button-sendMessage");
 
-socket.on("friend-message", messageContent => {
-    console.log(room);
-    createMessage(messageContent, "friend-message");
-});
+//EVENT LISTENERS
+// ~
+sendMessage.addEventListener("click", (event) => {
+    event.preventDefault();
 
-sendMessage.addEventListener("click", (e) => {
-    e.preventDefault();
+    const message = {
+        text: messageInput.value.trim(),
+        user: userData.username,
+        room: room
+    }
 
-   const getMessage = document.getElementById("messagePost");
-    if(getMessage == "") {
+    if(message.text == "") {
         alert("message is undefined");
         return;
     }
 
-    const message = {
-        content : getMessage.value.trim(),
-        room : room
-    }
+    socket.emit("client-message", message);
 
-   createMessage(message.content, "your-message");
-
-   socket.emit("client-message", message);
-});
-
-document.getElementById("define-room").addEventListener("click", (e) => {
-    e.preventDefault();
-
-    return defineRoom();
+    createMessage(message, "your-message");
+    messageInput.value = "";
 });
 
 
-function createMessage(content, person) {
-    var messageDiv = document.createElement("div");
-        messageDiv.classList.add(person);
+const roomInput = document.getElementById("roomInput");
+const sendRoom = document.getElementById("button-sendRoom");
 
-    var message = document.createElement("p");
-        message.classList.add("message");
-        message.textContent = content;
+    var room;
 
-    messageDiv.appendChild(message);
+sendRoom.addEventListener("click", (event) => {
+    event.preventDefault();
 
-    document.getElementById("chat-message").appendChild(messageDiv);
-}
+    if(room != roomInput.value.trim()) {
+        socket.emit("leave-room", room);
+        room = "";
+    } 
 
-function defineRoom() {
-    const roomInput = document.getElementById("roomInput");
     room = roomInput.value.trim();
 
-    console.log("log 2: " + room);
+    
 
     socket.emit("enter-room", room);
+});
+//
+
+//SOCKETS INSTANCES
+//~
+socket.on("friend-message", (message) => {
+    createMessage(message, "friend-message");
+}); 
+
+
+//FUNCTIONS
+//~
+function createMessage(message, person) {
+    
+    const messageDiv = document.createElement("div");
+            messageDiv.classList.add(person);
+
+    const messageP = document.createElement("p");
+            messageP.classList.add("message");
+            messageP.textContent = message.text;
+
+            messageDiv.appendChild(messageP);
+
+    document.getElementById("chat-message").appendChild(messageDiv);
 }
