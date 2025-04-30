@@ -8,7 +8,4 @@ const messageModel = new mongoose.Schema({
 
 }, { versionKey: false });
 
-// const message = mongoose.model("chat", messageModel);
-// export default message ;
-
 export default mongoose.model("chat", messageModel);
