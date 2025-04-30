@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Soulkaku/EchoChat#readme",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-handlebars": "^8.0.2",
     "handlebars": "^4.7.8",
