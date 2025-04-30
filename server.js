@@ -4,10 +4,14 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { Server } from "socket.io";
 import exphbs  from "express-handlebars";
+import dotenv from "dotenv";
+import { connectWithDb } from "./SRC/Config/connectionDB.js";
 
 
 const app = express();
 const PORT = 3000;
+
+dotenv.config();
 
 const server = http.createServer(app);
 const io = new Server(server);
@@ -31,42 +35,23 @@ app.use(express.urlencoded({ extended: true}));
 app.get('/', (req, res) => {
     res.render("login", {layout: "main"} );
 });
-
 app.get('/conversas', (req, res) => {
     res.render("chat", {layout: "main"} );
 });
+
+const dbConnected = await connectWithDb();
+
+    dbConnected.once("open", () => {
+        console.log("connection with database is a sucess");
+    });
+    dbConnected.on("error", (error) => {
+        console.error(`ERROR: CONNECTION WITH DATABASE IS A FAILURE: ${error}`);
+    });
+
 
 server.listen(PORT, () => {
     console.log("Running in port " + PORT + `: http://localhost:${PORT}/`);
 });
 
+
 export default  io ;
-
-
-
-// const PORT = 3000;
-// const app = express();
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-
-// app.engine('handlebars', exphb({
-//     defaultLayout : 'default',
-//     partialsDir: path.join(__dirname, 'views/partials'),
-//     extname: '.hbs'
-// }));
-// app.set('view engine', 'handlebars');
-// app.set('views', path.join(__dirname, 'views'));
-
-
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// app.get('/', (req, res) => {
-//     res.render('default', {layout: 'HomePage'});
-// });
-
-// app.listen(PORT, () => {
-//     console.log("Running in port " + PORT + `: http://localhost:${PORT}/`);
-// });
-
