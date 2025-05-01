@@ -5,13 +5,13 @@ class chatController {
 
     static async pushMessages(req, res) {
         try {
-            const { room } = req.body;
+            const { room, user } = req.body;
             const showMessages = await service.pushMessages(room);
             
-            //io.to("user").emit("messagesFromThisChat", showMessages);
-
+            io.to(user).emit("load-messages", showMessages);
+            
             res.status(200).json({ message : "pushMessages is a sucess"});
-        
+            
         } catch (error) {
             res.status(500).json({ message : `ERROR IN pushMessages: ${error.message}` });
         }
