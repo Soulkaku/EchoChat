@@ -1,8 +1,14 @@
+
 import messageModel from "../Models/messageModel.js";
 
 class chatService {
-    constructor(model) {
-        this.messageModel = model;
+    async showMessages(room) {
+        const messages = await messageModel.find({ origin: room });
+        return messages.map(item => ({
+            text: item.text,
+            user: item.user,
+            origin: item.origin
+        }));
     }
 }
 
