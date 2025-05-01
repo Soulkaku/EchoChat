@@ -1,9 +1,19 @@
-import chatService from "../Services/chatServices.js";
+import io from "../../server.js";
+import service from "../Services/chatServices.js";
 
 class chatController {
-    constructor(service) {
-        this.chatService = service;
-    }
 
-    
+    static async pushMessages(req, res) {
+        try {
+            const { room } = req.body;
+            const showMessages = await service.pushMessages(room);
+            
+            //io.to("user").emit("messagesFromThisChat", showMessages);
+
+            res.status(200).json({ message : "pushMessages is a sucess"});
+        
+        } catch (error) {
+            res.status(500).json({ message : `ERROR IN pushMessages: ${error.message}` });
+        }
+    }
 }
