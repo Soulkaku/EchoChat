@@ -12,11 +12,21 @@ submitUser.addEventListener("click", (e) => {
     }
 
     const user = {
-       "username" : usernameInput.value.trim()
+        name: usernameInput.value.trim(),
     }
 
-    console.log("log 1: " + JSON.stringify(user));
+    const userPost = {
+       method: "POST",
+       headers: { "Content-Type" : "application/json" },
+       body: JSON.stringify(user)
+    }
 
-    sessionStorage.setItem("user-client", JSON.stringify(user));
-    window.location.href = `/conversas?user=${user.username}`;
+    fetch('/user/create', userPost).then(() => {
+        console.log("log 1: " + JSON.stringify(user));
+
+        // sessionStorage.setItem("user-client", JSON.stringify(user));
+        // window.location.href = `/conversas?user=${user.username}`;
+    });
+
+
 });
