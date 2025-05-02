@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 import exphbs  from "express-handlebars";
 import dotenv from "dotenv";
 import { connectWithDb } from "./SRC/Config/connectionDB.js";
-
+import routes from "./SRC/Routes/indexRoutes.js";
 
 const app = express();
 const PORT = 3000;
@@ -31,6 +31,9 @@ app.set("views", path.join(`${__dirname}/SRC/Views`));
 
 app.use(express.static(path.join(`${__dirname}/Public`)));
 app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
+routes(app);
+
 
 app.get('/', (req, res) => {
     res.render("login", {layout: "main"} );
