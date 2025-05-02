@@ -1,7 +1,7 @@
 import io from "../../server.js";
-import chatService from "../Services/chatServices.js";
+import service from "../Services/chatServices.js";
 
-const service = new chatService;
+// const service = new chatService;
 
 class chatController {
 
