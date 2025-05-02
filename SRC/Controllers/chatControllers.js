@@ -1,7 +1,22 @@
 import io from "../../server.js";
-import service from "../Services/chatServices.js";
+import chatService from "../Services/chatServices.js";
+
+const service = new chatService;
 
 class chatController {
+
+    static async createUser(req, res) {
+        try {
+            const { name } = req.body;
+
+            const newUser = await service.createUser({ name: name});
+        
+            res.status(201).json(newUser);
+        } catch (error) {
+            res.status(500).json({ message : `ERROR in create user: ${error.message}`});
+            console.error(error);
+        }
+    }
 
     static async pushMessages(req, res) {
         try {
@@ -17,3 +32,5 @@ class chatController {
         }
     }
 }
+
+export default chatController;
