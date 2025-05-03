@@ -11,6 +11,10 @@ class chatController {
 
             const newUser = await service.createUser({ name: name});
         
+            if (newUser != name) {
+                return res.status(400).json({message: "This name already exist in the database"});
+            }
+
             res.status(201).json(newUser);
         } catch (error) {
             res.status(500).json({ message : `ERROR in create user: ${error.message}`});
