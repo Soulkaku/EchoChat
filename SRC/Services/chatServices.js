@@ -4,7 +4,13 @@ import userModel from "../Models/userModel.js";
 
 class chatService {
     async createUser(user) {
-        return await userModel.create({name : user.name});
+        const findUser = await userModel.findOne({ name : user.name});
+
+        if(findUser) {
+            return await userModel.create({ name : undefined });
+        } else {
+            return await userModel.create({name : user.name});
+        }
     }
 
     async showMessages(room) {
@@ -17,4 +23,4 @@ class chatService {
     }
 }
 
-export default chatService;
+export default new chatService;
