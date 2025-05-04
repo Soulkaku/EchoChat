@@ -15,18 +15,26 @@ submitUser.addEventListener("click", (e) => {
         name: usernameInput.value.trim(),
     }
 
-    const userPost = {
-       method: "POST",
-       headers: { "Content-Type" : "application/json" },
-       body: JSON.stringify(user)
+    async function createUser() {
+
+        const userPost = {
+            method: "POST",
+            headers: { "Content-Type" : "application/json" },
+            body: JSON.stringify(user)
+        }
+
+        try {
+            const response = await fetch("/user/create", userPost);
+            console.log(await response.json());
+
+            // window.location.href = `/conversas?user=${user.username}`;
+        } catch (error) {
+            console.log("Log error: " + error);
+        }
+       
     }
-
-    fetch('/user/create', userPost).then(() => {
-        console.log("log 1: " + JSON.stringify(user));
-
-        // sessionStorage.setItem("user-client", JSON.stringify(user));
-        // window.location.href = `/conversas?user=${user.username}`;
-    });
-
+    sessionStorage.setItem("user-client", JSON.stringify(user));
+    createUser();
+    
 
 });
