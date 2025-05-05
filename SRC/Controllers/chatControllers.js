@@ -24,17 +24,20 @@ class chatController {
 
     static async pushMessages(req, res) {
         try {
-            const { room, user } = req.body;
-            const showMessages = await service.pushMessages(room);
-            
-            io.to(user).emit("load-messages", showMessages);
-            
-            res.status(200).json({ message : "pushMessages is a sucess"});
-            
+            const { room } = req.params.room;
+            const showMessages = await service.showMessages(room);
+            console.log(showMessages)
+
+            res.status(200).json(showMessages);
         } catch (error) {
-            res.status(500).json({ message : `ERROR IN pushMessages: ${error.message}` });
+            res.status(500).json({ messsage : `ERROR in pushing messages: ${error.message}`});
         }
     }
+
+    // static async postMessage(req, res) {
+    //     const {text, room, user} = req.body;
+    //     console.log();
+    // }
 }
 
 export default chatController;
