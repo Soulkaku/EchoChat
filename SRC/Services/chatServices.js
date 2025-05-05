@@ -13,13 +13,15 @@ class chatService {
         }
     }
 
+
     async showMessages(room) {
-        const messages = await messageModel.find({ origin: room });
-        return messages.map(item => ({
-            text: item.text,
-            user: item.user,
-            origin: item.origin
-        }));
+        const messages = await messageModel.find({ origin: room }).select('text origin');
+        
+        return messages.map(message => ({
+                text: message.text,
+                // user: message.user,
+                origin: message.origin
+            }));
     }
 }
 
