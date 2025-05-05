@@ -27,10 +27,11 @@ submitUser.addEventListener("click", (e) => {
             const response = await fetch("/user/create", userPost);
             console.log(await response.json());
 
-            // window.location.href = `/conversas?user=${user.username}`;
+            window.location.href = `/conversas?user=${user.name}`;
         } catch (error) {
             console.log("Log error: " + error);
         }
+
        
     }
     sessionStorage.setItem("user-client", JSON.stringify(user));
