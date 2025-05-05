@@ -5,8 +5,8 @@ const messageModel = new mongoose.Schema({
 
     text : { type : String, required: true },
     user : { type : mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    origin : { type : String },
+    room : { type : String },
 
 }, { versionKey: false });
 
-export default mongoose.model("Message", messageModel);
+export default mongoose.model("message", messageModel);
