@@ -10,12 +10,13 @@ class chatController {
             const { name } = req.body;
 
             const newUser = await service.createUser({ name: name});
-            
+
+
             if (!newUser) {
                 return res.status(400).json({message: "This name already exist in the database"});
             }
             
-            res.status(201).json({ message: name });
+            res.status(201).json(newUser);
         } catch (error) {
             res.status(500).json({ message : `ERROR in create user: ${error.message}`});
             console.error(error);
@@ -24,9 +25,9 @@ class chatController {
 
     static async pushMessages(req, res) {
         try {
-            const { room } = req.params.room;
+            const room = req.params.room;
             const showMessages = await service.showMessages(room);
-            console.log(showMessages)
+            console.log(showMessages);
 
             res.status(200).json(showMessages);
         } catch (error) {
@@ -34,10 +35,12 @@ class chatController {
         }
     }
 
-    // static async postMessage(req, res) {
-    //     const {text, room, user} = req.body;
-    //     console.log();
-    // }
+    static async postMessage(req, res) {
+        const { text, room, user } = req.body;
+
+        const postMessage = await service.postMessage(text, room, user);
+
+    }
 }
 
 export default chatController;
