@@ -13,7 +13,6 @@ submitUser.addEventListener("click", (e) => {
 
     const user = {
         name: usernameInput.value.trim(),
-        
     }
 
     async function createUser() {
@@ -28,14 +27,14 @@ submitUser.addEventListener("click", (e) => {
             const response = await fetch("/user/create", userPost);
             const data = await response.json();
 
-            Object.defineProperty(user, id, data._id);
-            window.location.href = `/conversas?user=${user.name}`;
+            user.id = data._id;
+            // window.location.href = `/conversas?user=${user.name}`;
         } catch (error) {
             console.log("Log error: " + error);
         }       
     }
 
-    
+    console.log(user)
     sessionStorage.setItem("user-client", JSON.stringify(user));
     createUser();
 });
