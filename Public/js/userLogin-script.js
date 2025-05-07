@@ -2,7 +2,7 @@
 const usernameInput = document.getElementById("input-username");
 const submitUser = document.getElementById("submit-button");
 
-submitUser.addEventListener("click", (e) => {
+submitUser.addEventListener("click", async (e) => {
     e.preventDefault();
 
     if((usernameInput.value.trim()).length < 3) {
@@ -11,32 +11,28 @@ submitUser.addEventListener("click", (e) => {
         return;
     }
 
-    var user = {
+    const user = {
         name: usernameInput.value.trim(),
     }
 
-    async function createUser() {
+        try {
 
         const userPost = {
             method: "POST",
             headers: { "Content-Type" : "application/json" },
             body: JSON.stringify(user)
         }
-
-        try {
+            
             const response = await fetch("/user/create", userPost);
             const data = await response.json();
 
             console.log(data)
-            
+        
             sessionStorage.setItem("user-client", JSON.stringify(data));
         } catch (error) {
             console.log("Log error: " + error);
         }       
-    }
     
-    createUser();
-
     window.location.href = `/conversas?user=${user.name}`;
     
 });
