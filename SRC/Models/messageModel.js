@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const messageModel = new mongoose.Schema({
 
     text : { type : String, required: true },
-    user : { type : mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+    user : { type : mongoose.Schema.Types.ObjectId, ref: "user"},
     room : { type : String },
 
 }, { versionKey: false });
