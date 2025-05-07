@@ -5,7 +5,7 @@ const routes = express.Router();
 
 routes.post(`/user/create`, controllers.createUser);
 routes.get(`/conversas/getMessages/:room`, controllers.pushMessages);
-routes.post(`/conversas/postMessage`, controllers.postMessage);
+routes.post(`/conversas/postMessage`, controllers.createMessage);
 
 
 export { routes };
