@@ -1,7 +1,7 @@
 import { socket } from "./socket.js";
 
-const userData = JSON.parse(sessionStorage.getItem("user-client"));
-console.log(userData);
+const user = JSON.parse(sessionStorage.getItem("user-client"));
+console.log(user);
 
 document.getElementById("username").textContent = userData.name;
 
@@ -30,30 +30,32 @@ sendRoom.addEventListener("click", (e) => {
 const messageInput = document.getElementById("messageInput");
 const sendMessage = document.getElementById("button-sendMessage");
 
-sendMessage.addEventListener("click", (e) => {
+sendMessage.addEventListener("click", async (e) => {
     e.preventDefault();
 
     const message = {
         text: messageInput.value.trim(),
         room: room,
-        user: userData
+        user: user
     }
 
     console.log(message);
 
-    async function postMessage() {
+    try {
         const reqBody = {
             method: "POST",
             headers: { "Content-Type" : "application/json" },
             body: JSON.stringify(message)
         }
 
-        const request = fetch("/conversas/postMessage", reqBody);
+        const request = fetch("/conversas/createMessage", reqBody);
         request.then(async (response) => {
             console.log(await response.json());
         });
+    } catch (error) {
+        console.error(`Create message ${error}`);
     }
-    postMessage();
+
 });
 // //
 
