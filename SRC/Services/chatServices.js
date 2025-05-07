@@ -14,14 +14,16 @@ class chatService {
         }
     }
 
-    async showMessages(room) {
-        const messages = await messageModel.find();
-        return messages;
-    }
+    async createMessage(text, room, user) {
+        const message = await messageModel.create({ text: text, room: room, user: user });
+        const userId = user._id
+        async function pushMessageToUser() {
+            const updatedUser = await userModel.findByIdAndUpdate(userId, { $push : { messages : message._id }}, { new : true });
+            return updatedUser;
+        }
 
-    async postMessages(text, room, user) {
-        const message = await messageModel.create({text : text }, {room: room } );
-        const populated = await message.findById(message._id).populate('user');
+        pushMessageToUser();
+        return message;        
     }
 }
 
