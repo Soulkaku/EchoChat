@@ -3,15 +3,14 @@ import { socket } from "./socket.js";
 const user = JSON.parse(sessionStorage.getItem("user-client"));
 console.log(user);
 
-document.getElementById("username").textContent = userData.name;
+document.getElementById("username").textContent = user.name;
 
 const roomInput = document.getElementById("roomInput");
 const sendRoom = document.getElementById("button-sendRoom");
 
 let room;
 
-sendRoom.addEventListener("click", (e) => {
-    e.preventDefault();
+sendRoom.addEventListener("click", () => {
     
     if(room != roomInput.value) {
         socket.emit("leave-room", room);
@@ -22,7 +21,20 @@ sendRoom.addEventListener("click", (e) => {
     socket.emit("enter-room", room);
 
     fetch(`/conversas/getMessages/${room}`).then(async (data) => {
-        console.log(await data.json());
+        const messages = await data.json();
+
+        // console.log(await data.json());
+
+        for(let i = 0; i < messages.length; i++) {
+            if(messages[i].user != user._id) {
+                console.log(messages[i]);
+                return createMessage(messages[i].text, "friend-message");
+            } else {
+                console.log(messages[i]);
+                return createMessage(messages[i].text, "your-message");
+            }
+            
+        }
     });
 });
 
@@ -68,14 +80,14 @@ sendMessage.addEventListener("click", async (e) => {
 
 //FUNCTIONS
 //~
-function createMessage(message, person) {
+function createMessage(text, person) {
     
     const messageDiv = document.createElement("div");
             messageDiv.classList.add(person);
 
     const messageP = document.createElement("p");
             messageP.classList.add("message");
-            messageP.textContent = message.text;
+            messageP.textContent = text;
 
             messageDiv.appendChild(messageP);
 
