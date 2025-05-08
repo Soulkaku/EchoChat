@@ -5,13 +5,20 @@ console.log(user);
 
 document.getElementById("username").textContent = user.name;
 
+if(sessionStorage.getItem("restore-messages")) {
+    const messages = JSON.parse(sessionStorage.getItem("room-messages"));
+
+    pushMessages(messages);
+}
+
+
 const roomInput = document.getElementById("roomInput");
 const sendRoom = document.getElementById("button-sendRoom");
 
 let room;
 
 sendRoom.addEventListener("click", () => {
-    
+
     if(room != roomInput.value) {
         socket.emit("leave-room", room);
         room = "";
@@ -23,18 +30,10 @@ sendRoom.addEventListener("click", () => {
     fetch(`/conversas/getMessages/${room}`).then(async (data) => {
         const messages = await data.json();
 
-        // console.log(await data.json());
+        sessionStorage.setItem("room-messages", JSON.stringify(messages));
+        sessionStorage.setItem("restore-messages", true);
 
-        for(let i = 0; i < messages.length; i++) {
-            if(messages[i].user != user._id) {
-                console.log(messages[i]);
-                return createMessage(messages[i].text, "friend-message");
-            } else {
-                console.log(messages[i]);
-                return createMessage(messages[i].text, "your-message");
-            }
-            
-        }
+        location.reload();
     });
 });
 
@@ -92,4 +91,17 @@ function createMessage(text, person) {
             messageDiv.appendChild(messageP);
 
     document.getElementById("chat-message").appendChild(messageDiv);
+}
+
+function pushMessages(Arr) {
+    
+    for(let i = 0; i < Arr.length; i++) {
+        if(Arr[i].user != user._id) {
+            console.log(Arr[i]);
+            return createMessage(Arr[i].text, "friend-message");
+        } else {
+            console.log(Arr[i]);
+            return createMessage(Arr[i].text, "your-message");
+        }
+    }
 }
