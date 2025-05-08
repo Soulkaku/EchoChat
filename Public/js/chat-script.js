@@ -5,17 +5,29 @@ console.log(user);
 
 document.getElementById("username").textContent = user.name;
 
+let room;
+
 if(sessionStorage.getItem("restore-messages")) {
-    const messages = JSON.parse(sessionStorage.getItem("room-messages"));
+    room = sessionStorage.getItem("room");
 
-    pushMessages(messages);
+    fetch(`/conversas/getMessages/${room}`).then(async (data) => {
+        const messages = await data.json();
+
+        for(let i = 0; i < messages.length; i++) {
+            console.log(messages);
+            if((messages[i].user).trim() != (user._id).trim()) {
+                console.log(messages[i]);
+                createMessage(messages[i].text, "friend-message");
+            } else {
+                console.log(messages[i]);
+                createMessage(messages[i].text, "your-message");
+            }
+        }
+    });
 }
-
 
 const roomInput = document.getElementById("roomInput");
 const sendRoom = document.getElementById("button-sendRoom");
-
-let room;
 
 sendRoom.addEventListener("click", () => {
 
@@ -27,14 +39,13 @@ sendRoom.addEventListener("click", () => {
     room = roomInput.value;
     socket.emit("enter-room", room);
 
-    fetch(`/conversas/getMessages/${room}`).then(async (data) => {
-        const messages = await data.json();
 
-        sessionStorage.setItem("room-messages", JSON.stringify(messages));
+        sessionStorage.setItem("room", room);
+        // sessionStorage.setItem("room-messages", JSON.stringify(messages));
         sessionStorage.setItem("restore-messages", true);
 
         location.reload();
-    });
+    
 });
 
 
@@ -84,17 +95,4 @@ function createMessage(text, person) {
             messageDiv.appendChild(messageP);
 
     document.getElementById("chat-message").appendChild(messageDiv);
-}
-
-function pushMessages(Arr) {
-    
-    for(let i = 0; i < Arr.length; i++) {
-        if(Arr[i].user != user._id) {
-            console.log(Arr[i]);
-            return createMessage(Arr[i].text, "friend-message");
-        } else {
-            console.log(Arr[i]);
-            return createMessage(Arr[i].text, "your-message");
-        }
-    }
 }
