@@ -34,29 +34,19 @@ class chatController {
         }
     }
 
-    // static async pushMessages(req, res) {
-    //     try {
-    //         const room = req.params.room;
-    //         const showMessages = await service.showMessages(room);
-    //         console.log(showMessages);
+    static async pushMessages(req, res) {
+        try {
+            const room = req.params.room;
+            const messages = await service.pushMessages(room);
 
-    //         res.status(200).json(showMessages);
-    //     } catch (error) {
-    //         res.status(500).json({ messsage : `ERROR in pushing messages: ${error.message}`});
-    //     }
-    // }
+            console.log(messages);
 
-    // static async createMessage(req, res) {
-    //     try {
-    //         const { text, room, user } = req.body;
+            res.status(200).json(messages);
+        } catch (error) {
+            res.status(500).json({ message: `ERROR in pushing messages from a room: ${error.message}`});
+        }
+    }
 
-    //         const createMessage = await service.createMessage(text, room, user);
-    //         console.log(createMessage);
-
-    //     } catch(error) {
-    //         res.status(400).json({ message : `ERROR in creating your message: ${error.message}`});
-    //     }
-    // }
 }
 
 export default chatController;
