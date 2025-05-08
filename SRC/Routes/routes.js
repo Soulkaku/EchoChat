@@ -4,7 +4,7 @@ import controllers from "../Controllers/chatControllers.js";
 const routes = express.Router();
 
 routes.post(`/user/create`, controllers.createUser);
-routes.get(`/conversas/getMessages/:room`, controllers.pushMessages);
+routes.get(`/conversas/getMessages/:room`, controllers.pullMessages);
 routes.post(`/conversas/createMessage`, controllers.createMessage);
 
 

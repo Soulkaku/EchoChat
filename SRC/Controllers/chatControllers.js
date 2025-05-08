@@ -34,10 +34,10 @@ class chatController {
         }
     }
 
-    static async pushMessages(req, res) {
+    static async pullMessages(req, res) {
         try {
             const room = req.params.room;
-            const messages = await service.pushMessages(room);
+            const messages = await service.pullMessages(room);
 
             console.log(messages);
 

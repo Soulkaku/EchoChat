@@ -27,7 +27,7 @@ class chatService {
         return message;        
     }
 
-    async pushMessages(room) {
+    async pullMessages(room) {
         const pushMessagesFromRoom = await messageModel.find({ room: room }).select('-_id text user');
         return pushMessagesFromRoom.map(char =>( {
             text : char.text,
