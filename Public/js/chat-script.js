@@ -68,13 +68,6 @@ sendMessage.addEventListener("click", async (e) => {
     }
 
 });
-// //
-
-// //SOCKETS INSTANCES
-// //~
-// socket.on("friend-message", (message) => {
-//     createMessage(message, "friend-message");
-// }); 
 
 
 //FUNCTIONS
