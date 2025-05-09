@@ -11,11 +11,4 @@ io.on("connection", (socket) => {
         socket.leave(room);
         console.log(socket.id + " has leave the room " + room);
     });
-
-    // socket.on("client-message", (message) => {
-    //     const room = message.room;
-            
-    //     socket.to(room).emit("friend-message", message);
-    // });
 });
-
