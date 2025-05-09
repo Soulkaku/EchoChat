@@ -10,6 +10,8 @@ let room;
 if(sessionStorage.getItem("restore-messages")) {
     room = sessionStorage.getItem("room");
 
+    socket.emit("enter-room", room);
+
     fetch(`/conversas/getMessages/${room}`).then(async (data) => {
         const messages = await data.json();
 
@@ -35,7 +37,6 @@ sendRoom.addEventListener("click", () => {
     }
     
     room = roomInput.value;
-    socket.emit("enter-room", room);
 
     sessionStorage.setItem("room", room);
     sessionStorage.setItem("restore-messages", true);
@@ -68,12 +69,25 @@ sendMessage.addEventListener("click", async (e) => {
         const request = fetch("/conversas/createMessage", reqBody);
         request.then(async (response) => {
             console.log(await response.json());
+            messageInput.value = "";
         });
+
     } catch (error) {
         console.error(`Create message ${error}`);
     }
 
 });
+
+
+//SOCKETS
+//~
+socket.on("create-message", (message) => {
+    if((message.user).trim() != (user._id).trim()) {
+        createMessage(message.text, "friend-message");
+    } else {
+        createMessage(message.text, "your-message");
+    }
+}); 
 
 
 //FUNCTIONS
