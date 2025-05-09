@@ -26,7 +26,7 @@ submitUser.addEventListener("click", async (e) => {
             const response = await fetch("/user/create", userPost);
             const data = await response.json();
 
-            console.log(data)
+            console.log(data);
         
             sessionStorage.setItem("user-client", JSON.stringify(data));
         } catch (error) {

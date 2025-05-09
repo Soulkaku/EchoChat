@@ -16,10 +16,8 @@ if(sessionStorage.getItem("restore-messages")) {
         for(let i = 0; i < messages.length; i++) {
             console.log(messages);
             if((messages[i].user).trim() != (user._id).trim()) {
-                console.log(messages[i]);
                 createMessage(messages[i].text, "friend-message");
             } else {
-                console.log(messages[i]);
                 createMessage(messages[i].text, "your-message");
             }
         }
@@ -39,13 +37,10 @@ sendRoom.addEventListener("click", () => {
     room = roomInput.value;
     socket.emit("enter-room", room);
 
+    sessionStorage.setItem("room", room);
+    sessionStorage.setItem("restore-messages", true);
 
-        sessionStorage.setItem("room", room);
-        // sessionStorage.setItem("room-messages", JSON.stringify(messages));
-        sessionStorage.setItem("restore-messages", true);
-
-        location.reload();
-    
+    location.reload();
 });
 
 
