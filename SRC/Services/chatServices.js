@@ -8,7 +8,8 @@ class chatService {
         const findUser = await userModel.findOne({ name : user.name});
 
         if(findUser) {
-            throw new Error(" name already exist ");
+            return findUser;
+            // throw new Error(" name already exist ");
         } else {
             return await userModel.create({name : user.name});
         }
