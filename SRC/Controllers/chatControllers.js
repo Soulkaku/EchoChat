@@ -9,13 +9,13 @@ class chatController {
         try {
             const { name } = req.body;
 
-            const newUser = await service.createUser({ name: name});
+            const User = await service.createUser({ name: name});
 
-            if (!newUser) {
-                return res.status(400).json({message: "This name already exist in the database"});
-            }
+            // if (!User) {
+            //     return res.status(400).json({message: "This name already exist in the database"});
+            // }
             
-            res.status(201).json(newUser);
+            res.status(201).json(User);
         } catch (error) {
             res.status(500).json({ message : `ERROR in create user: ${error.message}`});
             console.error(error);
@@ -46,7 +46,6 @@ class chatController {
             res.status(500).json({ message: `ERROR in pushing messages from a room: ${error.message}`});
         }
     }
-
 }
 
 export default chatController;
