@@ -1,12 +1,14 @@
 import express from "express";
-import chat from "../Controllers/chatControllers.js";
-import login from "../Controllers/userControllers.js";
+import chatController from "../Controllers/chatControllers.js";
+import loginController from "../Controllers/userControllers.js";
+import loginValidator from "../Validators/login-validation.js";
+
 
 const routes = express.Router();
 
-routes.post(`/user/create`, login.createUser);
+routes.post(`/user/create`, [...loginValidator.validateName()], loginController.createUser);
 
-routes.get(`/conversas/getMessages/:room`, chat.pullMessages);
-routes.post(`/conversas/createMessage`, chat.createMessage);
+routes.get(`/conversas/getMessages/:room`, chatController.pullMessages, );
+routes.post(`/conversas/createMessage`, chatController.createMessage);
 
 export { routes };
