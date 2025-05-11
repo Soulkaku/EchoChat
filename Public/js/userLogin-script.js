@@ -37,7 +37,4 @@ submitUser.addEventListener("click", async (e) => {
         } catch (error) {
             console.log("Log error: " + error);
         }       
-    
-        
-    
 });
