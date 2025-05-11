@@ -1,5 +1,5 @@
 import messageModel from "../Models/messageModel.js";
-
+import userModel from "../Models/userModel.js";
 class chatService {
     async createMessage(text, room, user) {
         const message = await messageModel.create({ text: text, room: room, user: user });
