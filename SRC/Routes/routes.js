@@ -8,7 +8,7 @@ const routes = express.Router();
 
 routes.post(`/user/create`, [...loginValidator.validateName()], loginController.createUser);
 
-routes.get(`/conversas/getMessages/:room`, [...chatValidator.validateRoom] , chatController.pullMessages, );
-routes.post(`/conversas/createMessage`, [...chatValidator.validateTextMessage] , chatController.createMessage);
+routes.get(`/conversas/getMessages/:room`, [...chatValidator.validateRoom()] , chatController.pullMessages, );
+routes.post(`/conversas/createMessage`, [...chatValidator.validateTextMessage()] , chatController.createMessage);
 
 export { routes };
