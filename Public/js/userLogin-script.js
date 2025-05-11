@@ -23,16 +23,22 @@ submitUser.addEventListener("click", async (e) => {
             body: JSON.stringify(user)
         }
             
-            const response = await fetch("/user/create", userPost);
-            const data = await response.json();
-
-            console.log(data);
+            const request = await fetch("/user/create", userPost);
+            const response = await request.json();
         
-            sessionStorage.setItem("user-client", JSON.stringify(data));
+        if(!response.ok) {
+            console.error(response.errors);
+            return;
+        }
+            console.log(response);
+            sessionStorage.setItem("user-client", JSON.stringify(response));
+        
+            window.location.href = `/conversas?user=${user.name}`;
         } catch (error) {
             console.log("Log error: " + error);
+            return;
         }       
     
-    window.location.href = `/conversas?user=${user.name}`;
+        
     
 });
