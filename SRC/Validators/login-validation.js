@@ -1,7 +1,7 @@
 import { body, validationResult } from "express-validator"
 
 class loginValidators {
-    static validateName() {
+    static validateUser() {
         return [
             body('name')
             .notEmpty().withMessage("Campo nome está vazio").trim().escape(),

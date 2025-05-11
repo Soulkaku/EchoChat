@@ -6,7 +6,7 @@ import chatValidator from "../Validators/chat-validation.js";
 
 const routes = express.Router();
 
-routes.post(`/user/create`, [...loginValidator.validateName()], loginController.createUser);
+routes.post(`/user/create`, [...loginValidator.validateUser()], loginController.createUser);
 
 routes.get(`/conversas/getMessages/:room`, [...chatValidator.validateRoom()] , chatController.pullMessages, );
 routes.post(`/conversas/createMessage`, [...chatValidator.validateTextMessage()] , chatController.createMessage);
