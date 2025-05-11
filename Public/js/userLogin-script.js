@@ -26,7 +26,7 @@ submitUser.addEventListener("click", async (e) => {
             const request = await fetch("/user/create", userPost);
             const response = await request.json();
         
-        if(!response.ok) {
+        if(!request.ok) {
             console.error(response.errors);
             return;
         }
@@ -36,7 +36,6 @@ submitUser.addEventListener("click", async (e) => {
             window.location.href = `/conversas?user=${user.name}`;
         } catch (error) {
             console.log("Log error: " + error);
-            return;
         }       
     
         
